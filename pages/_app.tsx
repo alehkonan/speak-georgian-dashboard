@@ -1,18 +1,15 @@
-import '../styles/globals.css';
+import 'styles/globals.css';
 import type { AppProps } from 'next/app';
-import { SWRConfig } from 'swr';
-import { fetcher } from 'utils/fetcher';
+import { ApiProvider } from 'api/provider';
+import { ThemeProvider } from 'theme/provider';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <SWRConfig
-      value={{
-        fetcher,
-        onError: (error, key) => console.log(error, key),
-      }}
-    >
-      <Component {...pageProps} />
-    </SWRConfig>
+    <ApiProvider>
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </ApiProvider>
   );
 };
 
