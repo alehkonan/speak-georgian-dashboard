@@ -4,6 +4,8 @@ import { useWords } from 'api/hooks';
 import { connectDatabase } from 'database';
 import { History } from 'database/models';
 import { Word } from 'types';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useMemo } from 'react';
 
 type Props = {
   fallback: Record<ApiKey['words'], Word[]>;
@@ -23,20 +25,41 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 const WordsPage: NextPage<Props> = ({ fallback }) => {
+  
   const { words } = useWords({ fallback });
 
+  const columns = useMemo<GridColDef<Word>[]>(() => [
+    {
+      field: 'from',
+      headerName: 'From',
+      flex: 1,
+      sortable: false,
+    },
+    {
+      field: 'to',
+      headerName: 'To',
+      flex: 1,
+      sortable: false,
+    },
+    {
+      field: 'requested',
+      headerName: 'Requested',
+      width: 200,
+    }
+  ], []);
+
   return (
-    <div>
-      {words?.map(({ from, to, requested }) => {
-        return (
-          <div key={from}>
-            <p>from: {from}</p>
-            <p>to: {to}</p>
-            <p>requested: {requested}</p>
-          </div>
-        );
-      })}
-    </div>
+    <DataGrid<Word> 
+      sx={{
+        height: '100vh'
+      }}
+      getRowId={row => row.from} 
+      columns={columns} 
+      rows={words || []} 
+      autoPageSize 
+      density="compact" 
+      disableColumnMenu
+    />
   );
 };
 
