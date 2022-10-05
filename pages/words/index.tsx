@@ -50,9 +50,6 @@ const WordsPage: NextPage<Props> = ({ fallback }) => {
 
   return (
     <DataGrid<Word> 
-      sx={{
-        height: '100vh'
-      }}
       getRowId={row => row.from} 
       columns={columns} 
       rows={words || []} 
