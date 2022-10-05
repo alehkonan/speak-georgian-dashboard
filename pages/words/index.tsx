@@ -32,19 +32,19 @@ const WordsPage: NextPage<Props> = ({ fallback }) => {
     {
       field: 'from',
       headerName: 'From',
-      flex: 1,
+      flex: 2,
       sortable: false,
     },
     {
       field: 'to',
       headerName: 'To',
-      flex: 1,
+      flex: 2,
       sortable: false,
     },
     {
       field: 'requested',
       headerName: 'Requested',
-      width: 200,
+      flex: 1,
     }
   ], []);
 
