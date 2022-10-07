@@ -5,7 +5,7 @@ import type { Word } from 'types';
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<Word[] | string>
+  res: NextApiResponse<Word[] | string>,
 ) => {
   if (req.method === 'GET') {
     try {

@@ -25,36 +25,38 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 const WordsPage: NextPage<Props> = ({ fallback }) => {
-  
   const { words } = useWords({ fallback });
 
-  const columns = useMemo<GridColDef<Word>[]>(() => [
-    {
-      field: 'from',
-      headerName: 'From',
-      flex: 2,
-      sortable: false,
-    },
-    {
-      field: 'to',
-      headerName: 'To',
-      flex: 2,
-      sortable: false,
-    },
-    {
-      field: 'requested',
-      headerName: 'Requested',
-      flex: 1,
-    }
-  ], []);
+  const columns = useMemo<GridColDef<Word>[]>(
+    () => [
+      {
+        field: 'from',
+        headerName: 'From',
+        flex: 2,
+        sortable: false,
+      },
+      {
+        field: 'to',
+        headerName: 'To',
+        flex: 2,
+        sortable: false,
+      },
+      {
+        field: 'requested',
+        headerName: 'Requested',
+        flex: 1,
+      },
+    ],
+    [],
+  );
 
   return (
-    <DataGrid<Word> 
-      getRowId={row => row.from} 
-      columns={columns} 
-      rows={words || []} 
-      autoPageSize 
-      density="compact" 
+    <DataGrid<Word>
+      getRowId={(row) => row.from}
+      columns={columns}
+      rows={words || []}
+      autoPageSize
+      density="compact"
       disableColumnMenu
     />
   );
